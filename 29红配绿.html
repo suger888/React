@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <style>
+        .even{
+             background-color: red;   
+        }
+        .odd{
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id='root'>
+        
+    </div>
+</body>
+<script type="text/babel">  
+        
+        class App extends React.Component{
+            constructor(){
+                super()
+                this.arr=[]
+            }
+            render(){
+                return(
+                    <div>
+                        <button onClick={this.add.bind(this)}>插入li</button>
+                        <ul>
+                            {
+                                this.arr.map((item,i)=>(
+                                    <li className={this.arr[i]%2!=0?'even':'odd'}>{item}</li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                )
+            }
+            add(){
+                this.arr.push(Math.floor(Math.random()*10))
+                this.forceUpdate()
+            }
+        }
+    
+        ReactDOM.render(<App/>,document.getElementById('root'))
+    //每点击一次按钮,给ul插入一个新的li.li的内容随机取1-10的随机整数
+    //奇数li背景红,偶数li背脊绿(可以配合样式类)
+    
+</script>
+</html>

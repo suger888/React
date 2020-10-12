@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="./lib/react.development.js"></script>
+		<script src="./lib/react-dom.development.js"></script>
+		<script src="./lib/babel.min.js"></script>
+	</head>
+	<body>
+		<div id="root">
+			<input type="button" value="red" />
+			<input type="button" value="blue" />
+			<input type="button" value="green" />
+			<div>111</div>
+			<div>222</div>
+			<div>333</div>
+		</div>
+	</body>
+	<script type="text/babel">
+		class Ipts extends React.Component{
+			constructor(props){
+				super(props)
+				this.color=['red','blue','green']
+			}
+			render(){
+				let {change}=this.props
+				return (
+					this.color.map((item,i)=>{
+					return <input type="button" value={item} key={i} onClick={()=>change(item)} />
+					})
+				)	
+			}
+			
+
+		}
+		class Divs extends React.Component{
+			constructor(){
+				super()
+				this.arr=['111','222','333']
+			}
+			render(){
+				let {changeDivs}=this.props
+				return(
+					this.arr.map((item,i)=>{
+						return <div key={i} onClick={(ev)=>changeDivs(ev)}>{item}</div>
+					})
+				)
+			}
+			
+
+		}
+		class App extends React.Component{
+			constructor(props){
+				super(props)
+				this.aa=''
+			}
+			render(){
+				
+				return(
+					
+					<div>
+						<Ipts change={this.change.bind(this)} />
+						<Divs changeDivs={this.changeDivs.bind(this)}/>
+					</div>
+				)
+			}
+			change(item){
+				this.aa=item
+				console.log(this.aa);
+			}
+			changeDivs(ev){
+				console.log(ev.target);
+				ev.target.style.backgroundColor=this.aa
+			}
+		}
+		ReactDOM.render(<App/>,document.getElementById('root'))
+		//把单个input做成组件(不是3个按钮 做成3个组件)
+		//把单个div做成组件(不是3个div 做成3个组件)
+		
+		//点击某个按钮，再点击div，div的背景色变成被点击按钮的value
+		
+		// 提示:按钮操作的颜色和div操作的是两个数据.
+		// 点击按钮把颜色存到一个非state数据内.
+		// 点击div,把颜色数据修改到state数据内.
+		
+	</script>
+</html>
